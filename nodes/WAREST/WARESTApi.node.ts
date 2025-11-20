@@ -804,14 +804,11 @@ const messageFields: INodeProperties[] = [
         displayName: "File",
         values: [
           {
-            displayName: "Source",
-            name: "mode",
-            type: "options",
-            default: "urlOrBase64",
-            options: [
-              { name: "URL or Data URI", value: "urlOrBase64" },
-              { name: "Binary Property", value: "binary" },
-            ],
+            displayName: "Binary File",
+            name: "binaryFile",
+            type: "boolean",
+            default: false,
+            description: "Enable to use a binary property instead of a URL/path",
           },
           {
             displayName: "File URL/Data",
@@ -820,6 +817,7 @@ const messageFields: INodeProperties[] = [
             default: "",
             required: true,
             description: "URL, local path, or data URI",
+            displayOptions: { show: { binaryFile: [false] } },
           },
           {
             displayName: "Filename",
@@ -832,9 +830,10 @@ const messageFields: INodeProperties[] = [
             displayName: "Binary Property",
             name: "binaryProperty",
             type: "string",
-            default: "data",
+            default: "",
             description:
               "Binary property that contains the file when mode is Binary Property",
+            displayOptions: { show: { binaryFile: [true] } },
           },
           {
             displayName: "Caption",
@@ -858,6 +857,16 @@ const messageFields: INodeProperties[] = [
     },
   },
   {
+    displayName: "Binary File",
+    name: "mediaBinaryMode",
+    type: "boolean",
+    default: false,
+    description: "Enable to use a binary property instead of a URL/path",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendMedia"] },
+    },
+  },
+  {
     displayName: "Media",
     name: "media",
     type: "string",
@@ -865,7 +874,35 @@ const messageFields: INodeProperties[] = [
     required: true,
     description: "URL, local path, or base64 data URI",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendMedia"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendMedia"],
+        mediaBinaryMode: [false],
+      },
+    },
+  },
+  {
+    displayName: "Media Binary Property",
+    name: "mediaBinaryProperty",
+    type: "string",
+    default: "data",
+    description: "Binary property for sendMedia when using binary input",
+    displayOptions: {
+      show: {
+        resource: ["messages"],
+        operation: ["sendMedia"],
+        mediaBinaryMode: [true],
+      },
+    },
+  },
+  {
+    displayName: "Binary File",
+    name: "documentBinaryMode",
+    type: "boolean",
+    default: false,
+    description: "Enable to use a binary property instead of a URL/path",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendDocument"] },
     },
   },
   {
@@ -876,7 +913,35 @@ const messageFields: INodeProperties[] = [
     required: true,
     description: "Document URL, local path, or base64 data URI",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendDocument"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendDocument"],
+        documentBinaryMode: [false],
+      },
+    },
+  },
+  {
+    displayName: "Document Binary Property",
+    name: "documentBinaryProperty",
+    type: "string",
+    default: "data",
+    description: "Binary property for sendDocument when using binary input",
+    displayOptions: {
+      show: {
+        resource: ["messages"],
+        operation: ["sendDocument"],
+        documentBinaryMode: [true],
+      },
+    },
+  },
+  {
+    displayName: "Binary File",
+    name: "audioBinaryMode",
+    type: "boolean",
+    default: false,
+    description: "Enable to use a binary property instead of a URL/path",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendAudio"] },
     },
   },
   {
@@ -887,7 +952,35 @@ const messageFields: INodeProperties[] = [
     required: true,
     description: "Audio URL, local path, or base64 data URI",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendAudio"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendAudio"],
+        audioBinaryMode: [false],
+      },
+    },
+  },
+  {
+    displayName: "Audio Binary Property",
+    name: "audioBinaryProperty",
+    type: "string",
+    default: "data",
+    description: "Binary property for sendAudio when using binary input",
+    displayOptions: {
+      show: {
+        resource: ["messages"],
+        operation: ["sendAudio"],
+        audioBinaryMode: [true],
+      },
+    },
+  },
+  {
+    displayName: "Binary File",
+    name: "gifBinaryMode",
+    type: "boolean",
+    default: false,
+    description: "Enable to use a binary property instead of a URL/path",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendGif"] },
     },
   },
   {
@@ -898,7 +991,35 @@ const messageFields: INodeProperties[] = [
     required: true,
     description: "GIF/video URL, local path, or data URI",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendGif"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendGif"],
+        gifBinaryMode: [false],
+      },
+    },
+  },
+  {
+    displayName: "GIF/Video Binary Property",
+    name: "gifBinaryProperty",
+    type: "string",
+    default: "data",
+    description: "Binary property for sendGif when using binary input",
+    displayOptions: {
+      show: {
+        resource: ["messages"],
+        operation: ["sendGif"],
+        gifBinaryMode: [true],
+      },
+    },
+  },
+  {
+    displayName: "Binary File",
+    name: "stickerBinaryMode",
+    type: "boolean",
+    default: false,
+    description: "Enable to use a binary property instead of a URL/path",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendSticker"] },
     },
   },
   {
@@ -909,7 +1030,25 @@ const messageFields: INodeProperties[] = [
     required: true,
     description: "Sticker image/GIF URL, path, or data URI",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendSticker"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendSticker"],
+        stickerBinaryMode: [false],
+      },
+    },
+  },
+  {
+    displayName: "Sticker Binary Property",
+    name: "stickerBinaryProperty",
+    type: "string",
+    default: "data",
+    description: "Binary property for sendSticker when using binary input",
+    displayOptions: {
+      show: {
+        resource: ["messages"],
+        operation: ["sendSticker"],
+        stickerBinaryMode: [true],
+      },
     },
   },
   {
@@ -928,8 +1067,8 @@ const messageFields: INodeProperties[] = [
     displayName: "Buttons",
     name: "buttons",
     type: "fixedCollection",
-    typeOptions: { multipleValues: true },
-    placeholder: "Add Button",
+    typeOptions: { multipleValues: true, maxItems: 3 },
+    placeholder: "Add Button (max 3)",
     default: {},
     options: [
       {
@@ -945,6 +1084,7 @@ const messageFields: INodeProperties[] = [
               { name: "Reply", value: "reply" },
               { name: "URL", value: "url" },
               { name: "Call", value: "call" },
+              { name: "Copy", value: "copy" },
             ],
           },
           {
@@ -960,18 +1100,29 @@ const messageFields: INodeProperties[] = [
             type: "string",
             default: "",
             description: "Identifier returned when the button is tapped",
+            displayOptions: { show: { type: ["reply"] } },
           },
           {
             displayName: "URL",
             name: "url",
             type: "string",
             default: "",
+            displayOptions: { show: { type: ["url"] } },
           },
           {
             displayName: "Phone Number",
             name: "phoneNumber",
             type: "string",
             default: "",
+            displayOptions: { show: { type: ["call"] } },
+          },
+          {
+            displayName: "Copy Code",
+            name: "copyCode",
+            type: "string",
+            default: "",
+            description: "Text/code to copy when the button is tapped",
+            displayOptions: { show: { type: ["copy"] } },
           },
         ],
       },
@@ -1288,56 +1439,6 @@ const messageFields: INodeProperties[] = [
     description: "Limit how many poll options can be picked",
     displayOptions: {
       show: { resource: ["messages"], operation: ["sendPoll"] },
-    },
-  },
-  {
-    displayName: "Media Binary Property",
-    name: "mediaBinaryProperty",
-    type: "string",
-    default: "data",
-    description: "Binary property for sendMedia when using binary input",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendMedia"] },
-    },
-  },
-  {
-    displayName: "Document Binary Property",
-    name: "documentBinaryProperty",
-    type: "string",
-    default: "data",
-    description: "Binary property for sendDocument when using binary input",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendDocument"] },
-    },
-  },
-  {
-    displayName: "Audio Binary Property",
-    name: "audioBinaryProperty",
-    type: "string",
-    default: "data",
-    description: "Binary property for sendAudio when using binary input",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendAudio"] },
-    },
-  },
-  {
-    displayName: "GIF/Video Binary Property",
-    name: "gifBinaryProperty",
-    type: "string",
-    default: "data",
-    description: "Binary property for sendGif when using binary input",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendGif"] },
-    },
-  },
-  {
-    displayName: "Sticker Binary Property",
-    name: "stickerBinaryProperty",
-    type: "string",
-    default: "data",
-    description: "Binary property for sendSticker when using binary input",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendSticker"] },
     },
   },
   {
@@ -2854,6 +2955,36 @@ export class WARESTApi implements INodeType {
             const value = getParamValue(field, null);
             setIfDefined(body, field, value);
           }
+
+          if (
+            [
+              "sendMedia",
+              "sendDocument",
+              "sendAudio",
+              "sendGif",
+              "sendSticker",
+            ].includes(operation)
+          ) {
+            const binaryMode = getParamValue(
+              `${operation.replace("send", "").toLowerCase()}BinaryMode`,
+              false
+            ) as boolean;
+            if (binaryMode && binarySourceConfig[operation]) {
+              const configEntry = binarySourceConfig[operation];
+              const binaryProp = getParamValue(
+                configEntry.binaryParam,
+                undefined
+              ) as string | undefined;
+              if (typeof binaryProp === "string" && binaryProp.trim()) {
+                const dataUri = await getBinaryAsDataUri.call(
+                  this,
+                  i,
+                  binaryProp.trim()
+                );
+                body[configEntry.field] = dataUri;
+              }
+            }
+          }
         }
 
         if (operation === "sendButton") {
@@ -2943,8 +3074,8 @@ export class WARESTApi implements INodeType {
             ) as IDataObject[]) || [];
           const converted: IDataObject[] = [];
           for (const entry of files) {
-            const mode = (entry.mode as string) ?? "urlOrBase64";
-            if (mode === "binary") {
+            const binaryMode = entry.binaryFile === true;
+            if (binaryMode) {
               const binaryProp =
                 (entry.binaryProperty as string) &&
                 String(entry.binaryProperty);
@@ -2959,7 +3090,7 @@ export class WARESTApi implements INodeType {
               converted.push(cloned);
             } else {
               const cloned: IDataObject = { ...entry };
-              delete cloned.mode;
+              delete cloned.binaryFile;
               delete cloned.binaryProperty;
               converted.push(cloned);
             }
@@ -3133,7 +3264,9 @@ async function loadSessionOptions(
     }
 
     return flattened
-      .filter((s) => typeof s === "object" && s !== null && (s as IDataObject).id)
+      .filter(
+        (s) => typeof s === "object" && s !== null && (s as IDataObject).id
+      )
       .map((s) => {
         const friendlyName =
           typeof (s as IDataObject).name === "string"
