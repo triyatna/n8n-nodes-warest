@@ -2923,9 +2923,9 @@ export class WARESTApi implements INodeType {
       name: "WAREST",
     },
     codex: {
-      categories: ["Communication"],
+      categories: ["WhatsApp"],
       subcategories: {
-        Communication: ["Messaging"],
+        Communication: ["Messaging", "Communication"],
       },
       alias: ["WAREST", "WA Rest", "WhatsApp"],
     },

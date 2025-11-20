@@ -1,0 +1,19 @@
+{
+  "node": "n8n-nodes-warest",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "releaseNotes": "Initial release of WAREST node",
+  "categories": ["WhatsApp", "Communication", "Messaging"],
+  "resources": {
+    "credentialDocumentation": [
+      {
+        "url": "https://github.com/triyatna/n8n-nodes-warest/blob/main/README.md#credentials"
+      }
+    ],
+    "primaryDocumentation": [
+      {
+        "url": "https://github.com/triyatna/n8n-nodes-warest/blob/main/README.md"
+      }
+    ]
+  }
+}

@@ -20,7 +20,8 @@
     "warest",
     "whatsapp",
     "whatsapp-rest-api",
-    "automation"
+    "whatsapp-multi-device",
+    "whatsapp-api"
   ],
   "main": "index.js",
   "scripts": {
