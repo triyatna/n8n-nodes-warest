@@ -821,13 +821,6 @@ const messageFields: INodeProperties[] = [
             displayOptions: { show: { binaryFile: [false] } },
           },
           {
-            displayName: "Filename",
-            name: "filename",
-            type: "string",
-            default: "",
-            description: "Override shown filename for this file",
-          },
-          {
             displayName: "Binary Property",
             name: "binaryProperty",
             type: "string",
@@ -837,6 +830,13 @@ const messageFields: INodeProperties[] = [
             displayOptions: { show: { binaryFile: [true] } },
           },
           {
+            displayName: "Filename",
+            name: "filename",
+            type: "string",
+            default: "",
+            description: "Override shown filename for this file",
+          },
+          {
             displayName: "Caption",
             name: "caption",
             type: "string",
@@ -844,11 +844,19 @@ const messageFields: INodeProperties[] = [
             description: "Optional caption for this file",
           },
           {
+            displayName: "Reply Message",
+            name: "replyMessage",
+            type: "boolean",
+            default: false,
+            description: "Enable to reply to a message",
+          },
+          {
             displayName: "Reply to Message ID",
             name: "replyMessageId",
             type: "string",
             default: "",
             description: "Quote a different message for this file",
+            displayOptions: { show: { replyMessage: [true] } },
           },
         ],
       },
@@ -1053,15 +1061,34 @@ const messageFields: INodeProperties[] = [
     },
   },
   {
-    displayName: "Body Text",
+    displayName: "Body Message",
     name: "text",
     type: "string",
     typeOptions: { rows: 3 },
     default: "",
     required: true,
-    description: "Message shown above the buttons",
+    description: "Message string shown above buttons",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendButton"] },
+      show: { resource: ["messages"], operation: ["sendButton", "sendList"] },
+    },
+  },
+  {
+    displayName: "Footer",
+    name: "footer",
+    type: "string",
+    default: "",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendButton", "sendList"] },
+    },
+  },
+  {
+    displayName: "Image (URL/Data)",
+    name: "image",
+    type: "string",
+    default: "",
+    description: "Optional header image for button/list messages",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendButton", "sendList"] },
     },
   },
   {
@@ -1143,35 +1170,7 @@ const messageFields: INodeProperties[] = [
       show: { resource: ["messages"], operation: ["sendList"] },
     },
   },
-  {
-    displayName: "List Title",
-    name: "listTitle",
-    type: "string",
-    default: "",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendList"] },
-    },
-  },
-  {
-    displayName: "List Message",
-    name: "listText",
-    type: "string",
-    typeOptions: { rows: 3 },
-    default: "",
-    description: "Intro text shown above the list",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendList"] },
-    },
-  },
-  {
-    displayName: "List Footer",
-    name: "listFooter",
-    type: "string",
-    default: "",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendList"] },
-    },
-  },
+
   {
     displayName: "Sections",
     name: "listSections",
@@ -1186,6 +1185,7 @@ const messageFields: INodeProperties[] = [
         values: [
           {
             displayName: "Section Title",
+            description: "Title for this section",
             name: "title",
             type: "string",
             default: "",
@@ -1204,6 +1204,7 @@ const messageFields: INodeProperties[] = [
                 values: [
                   {
                     displayName: "Row ID",
+                    description: "Identifier for this row",
                     name: "id",
                     type: "string",
                     required: true,
@@ -1211,6 +1212,7 @@ const messageFields: INodeProperties[] = [
                   },
                   {
                     displayName: "Title",
+                    description: "Title for this row",
                     name: "title",
                     type: "string",
                     required: true,
@@ -1218,7 +1220,15 @@ const messageFields: INodeProperties[] = [
                   },
                   {
                     displayName: "Description",
+                    description: "Optional description for this row",
                     name: "description",
+                    type: "string",
+                    default: "",
+                  },
+                  {
+                    displayName: "Header",
+                    description: "Optional header for this row",
+                    name: "header",
                     type: "string",
                     default: "",
                   },
@@ -1248,14 +1258,14 @@ const messageFields: INodeProperties[] = [
             name: "latitude",
             type: "number",
             required: true,
-            default: 0,
+            default: -0.123456,
           },
           {
             displayName: "Longitude",
             name: "longitude",
             type: "number",
             required: true,
-            default: 0,
+            default: 0.123456,
           },
           {
             displayName: "Name",
@@ -1372,13 +1382,27 @@ const messageFields: INodeProperties[] = [
     },
   },
   {
+    displayName: "Custom Filename",
+    name: "customFilename",
+    type: "boolean",
+    default: false,
+    description: "Enable to override filename for document uploads",
+    displayOptions: {
+      show: { resource: ["messages"], operation: ["sendDocument"] },
+    },
+  },
+  {
     displayName: "Filename",
     name: "filename",
     type: "string",
     default: "",
     description: "Override filename for document uploads",
     displayOptions: {
-      show: { resource: ["messages"], operation: ["sendDocument"] },
+      show: {
+        resource: ["messages"],
+        operation: ["sendDocument"],
+        customFilename: [true],
+      },
     },
   },
   {
@@ -1413,25 +1437,7 @@ const messageFields: INodeProperties[] = [
       show: { resource: ["messages"], operation: ["sendAudio"] },
     },
   },
-  {
-    displayName: "Footer",
-    name: "footer",
-    type: "string",
-    default: "",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendButton", "sendList"] },
-    },
-  },
-  {
-    displayName: "Image (URL/Data)",
-    name: "image",
-    type: "string",
-    default: "",
-    description: "Optional header image for button/list messages",
-    displayOptions: {
-      show: { resource: ["messages"], operation: ["sendButton", "sendList"] },
-    },
-  },
+
   {
     displayName: "Max Selections",
     name: "maxSelection",
@@ -2548,7 +2554,7 @@ const OPERATION_CONFIG: Record<string, OperationConfig> = {
   "messages:sendList": {
     method: "POST",
     path: "/api/v1/messages/send/list",
-    bodyFields: ["sessionId", "to"],
+    bodyFields: ["sessionId", "to", "text"],
   },
   "messages:sendLocation": {
     method: "POST",
@@ -3443,6 +3449,14 @@ function buildListPayload(
   ctx: IExecuteFunctions,
   itemIndex: number
 ): IDataObject {
+  const getOptional = (name: string) => {
+    try {
+      return ctx.getNodeParameter(name, itemIndex, null);
+    } catch {
+      return undefined;
+    }
+  };
+
   const sectionsRaw = normalizeCollection(
     ctx.getNodeParameter("listSections", itemIndex, []),
     "section"
@@ -3456,6 +3470,7 @@ function buildListPayload(
             id: row.id,
             title: row.title,
             description: row.description,
+            header: row.header,
           }))
           .filter(
             (row) =>
@@ -3477,15 +3492,12 @@ function buildListPayload(
     buttonText: ctx.getNodeParameter("listButtonText", itemIndex) as string,
   };
 
-  setIfDefined(list, "title", ctx.getNodeParameter("listTitle", itemIndex));
-  setIfDefined(list, "text", ctx.getNodeParameter("listText", itemIndex));
-  setIfDefined(list, "footer", ctx.getNodeParameter("listFooter", itemIndex));
   if (filteredSections.length > 0) {
     list.sections = filteredSections;
   }
 
-  const image = ctx.getNodeParameter("image", itemIndex, "") as string;
-  if (image) {
+  const image = getOptional("image");
+  if (typeof image === "string" && image) {
     list.image = image;
   }
 
