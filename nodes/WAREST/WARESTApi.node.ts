@@ -808,7 +808,8 @@ const messageFields: INodeProperties[] = [
             name: "binaryFile",
             type: "boolean",
             default: false,
-            description: "Enable to use a binary property instead of a URL/path",
+            description:
+              "Enable to use a binary property instead of a URL/path",
           },
           {
             displayName: "File URL/Data",
@@ -1479,6 +1480,12 @@ const chatFields: INodeProperties[] = [
     type: "collection",
     default: {},
     placeholder: "Add Field",
+    displayOptions: {
+      show: {
+        resource: ["chats"],
+        operation: ["listChats"],
+      },
+    },
     options: [
       {
         displayName: "Limit",
@@ -1526,6 +1533,40 @@ const chatFields: INodeProperties[] = [
         default: "",
         description: "Filter chats or messages by text",
       },
+    ],
+  },
+  {
+    displayName: "Additional Fields",
+    name: "chatAdditionalFields",
+    type: "collection",
+    default: {},
+    placeholder: "Add Field",
+    displayOptions: {
+      show: {
+        resource: ["chats"],
+        operation: ["getChatMessages"],
+      },
+    },
+    options: [
+      {
+        displayName: "Limit",
+        name: "limit",
+        type: "number",
+        default: 10,
+      },
+      {
+        displayName: "Offset",
+        name: "offset",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Search",
+        name: "search",
+        type: "string",
+        default: "",
+        description: "Filter chats or messages by text",
+      },
       {
         displayName: "Start Time (ms)",
         name: "startTime",
@@ -1552,6 +1593,21 @@ const chatFields: INodeProperties[] = [
         type: "boolean",
         default: false,
       },
+    ],
+  },
+  {
+    displayName: "Additional Fields",
+    name: "chatAdditionalFields",
+    type: "collection",
+    default: {},
+    placeholder: "Add Field",
+    displayOptions: {
+      show: {
+        resource: ["chats"],
+        operation: ["markChatRead"],
+      },
+    },
+    options: [
       {
         displayName: "Messages to Mark Read",
         name: "messages",
@@ -1564,8 +1620,23 @@ const chatFields: INodeProperties[] = [
         name: "days",
         type: "number",
         default: 0,
-        description: "Limit marking read to the last N days when messages=0",
+        description: "Limit marking read to the last N days when messages = 0",
       },
+    ],
+  },
+  {
+    displayName: "Additional Fields",
+    name: "chatAdditionalFields",
+    type: "collection",
+    default: {},
+    placeholder: "Add Field",
+    displayOptions: {
+      show: {
+        resource: ["chats"],
+        operation: ["muteChat"],
+      },
+    },
+    options: [
       {
         displayName: "Mute Duration (minutes)",
         name: "duration",
@@ -1573,12 +1644,6 @@ const chatFields: INodeProperties[] = [
         default: 60,
       },
     ],
-    displayOptions: {
-      show: {
-        resource: ["chats"],
-        operation: ["listChats", "getChatMessages", "markChatRead", "muteChat"],
-      },
-    },
   },
 ];
 
