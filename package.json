@@ -1,6 +1,6 @@
 {
   "name": "@triyatna/n8n-nodes-warest",
-  "version": "0.1.11",
+  "version": "0.1.121",
   "description": "WAREST whatsapp unofficial rest api for n8n community node",
   "author": {
     "name": "WAREST",
@@ -60,11 +60,12 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/WarestApi.credentials.js"
+      "dist/credentials/WARESTApi.credentials.js"
     ],
     "nodes": [
       "dist/nodes/WAREST/WARESTApi.node.js",
-      "dist/nodes/WAREST/WARESTTrigger.node.js"
+      "dist/nodes/WAREST/WARESTTrigger.node.js",
+      "dist/nodes/WAREST/WARESTV2Trigger.node.js"
     ]
   }
 }

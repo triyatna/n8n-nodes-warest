@@ -1,9 +1,8 @@
 {
-  "node": "n8n-nodes-warest",
+  "node": "n8n-nodes-warest.WAREST",
   "nodeVersion": "1.0",
   "codexVersion": "1.0",
   "categories": ["WhatsApp", "Communication", "Messaging"],
-  "releaseNotes": "Initial release of WAREST node",
   "resources": {
     "credentialDocumentation": [
       {
