@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
   "include": ["nodes/**/*.ts", "credentials/**/*.ts"],

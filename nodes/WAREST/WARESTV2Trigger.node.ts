@@ -223,14 +223,33 @@ export class WARESTV2Trigger implements INodeType {
     const body = (this.getBodyData() ?? {}) as IDataObject;
     const rawBody = getRawBody(req, body);
 
-    const secrets = parseSecrets(
-      this.getNodeParameter("webhookSecrets", "") as string
-    );
     const additionalFields =
       (this.getNodeParameter(
         "additionalFields",
         {}
       ) as AdditionalWebhookOptions) ?? {};
+
+    const headerMeta = extractHeaderMeta(req.headers as IDataObject);
+    const dataPayload = (body.data ?? {}) as IDataObject;
+    const eventName = String(
+      headerMeta.event ?? body.event ?? dataPayload?.event ?? ""
+    ).trim();
+
+    if (eventName === "preflight") {
+      sendResponse(res, {
+        mode: "ack",
+        staticPayload: { ok: true, pong: true },
+        eventName,
+      });
+      return {
+        noWebhookResponse: true,
+        workflowData: [],
+      };
+    }
+
+    const secrets = parseSecrets(
+      this.getNodeParameter("webhookSecrets", "") as string
+    );
 
     const disableSignature = additionalFields.disableSignatureCheck === true;
     if (!disableSignature && secrets.length === 0) {
@@ -268,24 +287,6 @@ export class WARESTV2Trigger implements INodeType {
       )
     ) {
       res.status(401).json({ ok: false, message: "Stale timestamp" });
-      return {
-        noWebhookResponse: true,
-        workflowData: [],
-      };
-    }
-
-    const headerMeta = extractHeaderMeta(req.headers as IDataObject);
-    const dataPayload = (body.data ?? {}) as IDataObject;
-    const eventName = String(
-      headerMeta.event ?? body.event ?? dataPayload?.event ?? ""
-    ).trim();
-
-    if (eventName === "preflight") {
-      sendResponse(res, {
-        mode: "ack",
-        staticPayload: { ok: true, pong: true },
-        eventName,
-      });
       return {
         noWebhookResponse: true,
         workflowData: [],

@@ -1,17 +1,17 @@
 {
-  "node": "n8n-nodes-warest.WAREST",
+  "node": "@triyatna/n8n-nodes-warest.warest",
   "nodeVersion": "1.0",
   "codexVersion": "1.0",
   "categories": ["WhatsApp", "Communication", "Messaging"],
   "resources": {
     "credentialDocumentation": [
       {
-        "url": "https://github.com/triyatna/n8n-nodes-warest/blob/main/README.md#credentials"
+        "url": "https://github.com/triyatna/warest-whatsapp-rest-api?tab=readme-ov-file#n8n-community-node"
       }
     ],
     "primaryDocumentation": [
       {
-        "url": "https://github.com/triyatna/n8n-nodes-warest/blob/main/README.md"
+        "url": "https://github.com/triyatna/warest-whatsapp-rest-api/blob/main/README.md"
       }
     ]
   }
