@@ -25,16 +25,13 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json && node -e \"const fs=require('node:fs');const path=require('node:path');const src=path.join('nodes','icons');const dest=path.join('dist','nodes','icons');fs.rmSync(dest,{recursive:true,force:true});fs.mkdirSync(dest,{recursive:true});for (const file of fs.readdirSync(src)){fs.copyFileSync(path.join(src,file),path.join(dest,file));}}\" && node -e \"const fs=require('node:fs');const path=require('node:path');const srcRoot=path.join('nodes');const destRoot=path.join('dist','nodes');const walk=(rel)=>{const abs=path.join(srcRoot,rel);for (const entry of fs.readdirSync(abs,{withFileTypes:true})){if(entry.isDirectory())walk(path.join(rel,entry.name));else if(entry.name.endsWith('.node.json')){const srcFile=path.join(abs,entry.name);const destDir=path.join(destRoot,rel);fs.mkdirSync(destDir,{recursive:true});fs.copyFileSync(srcFile,path.join(destDir,entry.name));}}};walk('');\"",
+    "build": "tsc -p tsconfig.json && node -e \"const fs=require('node:fs');const path=require('node:path');const src=path.join('nodes','icons');const dest=path.join('dist','nodes','icons');fs.rmSync(dest,{recursive:true,force:true});fs.mkdirSync(dest,{recursive:true});for (const file of fs.readdirSync(src)){fs.copyFileSync(path.join(src,file),path.join(dest,file));}\" && node -e \"const fs=require('node:fs');const path=require('node:path');const srcRoot=path.join('nodes');const destRoot=path.join('dist','nodes');const walk=(rel)=>{const abs=path.join(srcRoot,rel);for (const entry of fs.readdirSync(abs,{withFileTypes:true})){if(entry.isDirectory())walk(path.join(rel,entry.name));else if(entry.name.endsWith('.node.json')){const srcFile=path.join(abs,entry.name);const destDir=path.join(destRoot,rel);fs.mkdirSync(destDir,{recursive:true});fs.copyFileSync(srcFile,path.join(destDir,entry.name));}}};walk('');\"",
     "dev": "tsc -w -p tsconfig.json",
     "lint": "echo \"no lint configured\"",
     "prepublishOnly": "npm run build",
     "docs:dev": "cd docs && npm install && npm run dev",
     "docs:build": "cd docs && npm install && npm run build",
     "docs:preview": "cd docs && npm install && npm run preview"
-  },
-  "engines": {
-    "node": ">=20.0.0"
   },
   "files": [
     "dist",
