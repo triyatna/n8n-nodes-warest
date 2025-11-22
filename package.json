@@ -1,6 +1,6 @@
 {
   "name": "@triyatna/n8n-nodes-warest",
-  "version": "0.1.121",
+  "version": "0.1.123",
   "description": "WAREST whatsapp unofficial rest api for n8n community node",
   "author": {
     "name": "WAREST",
